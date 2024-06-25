@@ -26,6 +26,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/books', booksRoute);
+app.use('/api', authRoutes);
 
 mongoose
   .connect(mongoDBURL)
