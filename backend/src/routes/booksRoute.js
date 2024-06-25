@@ -1,6 +1,8 @@
 import express from 'express';
 import { Book } from '../models/bookModel.js';
 
+//TODO: separete to controllers
+
 const router = express.Router();
 
 // Route for Save a new Book
