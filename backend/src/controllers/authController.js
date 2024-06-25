@@ -13,8 +13,8 @@ export const register = async (req, res) => {
       password,
     });
     console.log(newUser);
-    await newUser.save(); //to save in the db
-    res.send('register');
+    const userSaved = await newUser.save(); //to save in the db
+    res.send(userSaved);
   } catch (error) {
     console.log(error);
   }
