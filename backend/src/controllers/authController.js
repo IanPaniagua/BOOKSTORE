@@ -40,6 +40,28 @@ export const register = async (req, res) => {
 };
 
 //Login
-export const login = (req, res) => {
-  res.send('login');
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const userFound = await User.findOne({ email });
+    if (!userFound) return res.status(400).json({ message: 'User not found' });
+
+    const isMatch = await bcrypt.compare(password, userFound.password);
+    if (!isMatch)
+      return res.status(400).json({ message: 'Invalid credentials' });
+
+    //create acces token (function imported)
+    const token = await createAccessToken({ id: userFound._id });
+
+    //save the token in a cookie
+    res.cookie('token', token);
+    res.json({
+      id: userFound._id,
+      username: userFound.email,
+      email: userFound.email,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
