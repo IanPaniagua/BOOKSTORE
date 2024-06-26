@@ -51,7 +51,7 @@ export const login = async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: 'Invalid credentials' });
 
-    //create acces token (function imported)
+    //New token
     const token = await createAccessToken({ id: userFound._id });
 
     //save the token in a cookie
