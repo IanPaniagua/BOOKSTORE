@@ -5,10 +5,8 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
-
-import BooksTable from '../components/home/BooksTable';
-import BooksCard from '../components/home/Bookscard';
-
+import BooksCard from '../components/Home/BooksCard';
+import BooksTable from '../components/Home/BooksTable';
 const Home = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -53,11 +51,7 @@ const Home = () => {
       ) : showType === 'table' ? (
         <BooksTable books={books} />
       ) : (
-
         <BooksCard books={books} />
-
-        <BooksTable books={books} />
-
       )}
     </div>
   );
