@@ -25,8 +25,9 @@ export const register = async (req, res) => {
     //save the token in a cookie
     res.cookie('token', token);
 
-    //res.send(userSaved);                  //(we need create all but no return all the info)
-    //(only necesary data for the frontend)
+    //res.send(userSaved); (we need create all but no return all the info)
+
+    //(only necesary data for the frontend in json)
     res.json({
       id: userSaved._id,
       username: userSaved.email,
@@ -34,7 +35,7 @@ export const register = async (req, res) => {
       message: 'User created successfully',
     });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: error.message });
   }
 };
 
