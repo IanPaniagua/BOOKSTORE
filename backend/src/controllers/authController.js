@@ -1,7 +1,7 @@
 import express from 'express';
 import User from '../models/userModel.js';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { createAccessToken } from '../libs/jwt.js';
 
 //Register
 export const register = async (req, res) => {
@@ -19,29 +19,20 @@ export const register = async (req, res) => {
     console.log(newUser);
     const userSaved = await newUser.save(); //to save in the db (all the data)
 
-    jwt.sign(
-      {
-        id: userSaved._id,
-      },
-      'secret123',
-      {
-        expiresIn: '1d',
-      },
-      (err, token) => {
-        if (err) consonle.log(err);
-        res.cookie('token', token);
-        res.json({
-          message: 'User created successfully',
-        });
-      },
-    );
+    //create acces token (function imported)
+    const token = await createAccessToken({ id: userSaved._id });
 
-    // res.send(userSaved);    (we need create all but no return all the info)
-    // res.json({
-    //   id: userSaved._id,
-    //   username: userSaved.email,
-    //   email: userSaved.email,
-    // }); //(only necesary data for the frontend)
+    //save the token in a cookie
+    res.cookie('token', token);
+
+    //res.send(userSaved);                  //(we need create all but no return all the info)
+    //(only necesary data for the frontend)
+    res.json({
+      id: userSaved._id,
+      username: userSaved.email,
+      email: userSaved.email,
+      message: 'User created successfully',
+    });
   } catch (error) {
     console.log(error);
   }
