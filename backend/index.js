@@ -6,7 +6,7 @@ import booksRoute from './src/routes/booksRoute.js';
 import authRoutes from './src/routes/authRoute.js';
 import morgan from 'morgan';
 import cors from 'cors';
-
+import cookieParser from 'cookie-parser';
 // TODO: Creat app.js and reorganize the code
 
 const app = express();
@@ -15,6 +15,7 @@ app.use(morgan('dev'));
 
 //Middleware for parsing request body
 app.use(express.json());
+app.use(cookieParser());
 
 //Middlerare for handling CORS POLICY
 //Option 1: Allow All Origins with Default of cors(*)
