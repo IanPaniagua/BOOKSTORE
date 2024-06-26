@@ -65,3 +65,12 @@ export const login = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+//Logout
+export const logout = (req, res) => {
+  //reset token
+  res.cookie('token', '', {
+    expires: new Date(0),
+  });
+  return res.status(200);
+};
