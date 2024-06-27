@@ -6,7 +6,6 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineDelete } from 'react-icons/md';
 import { useState } from 'react';
 import BookModal from './BookModal';
-import BooksTable from './BooksTable';
 
 const BookSingleCard = ({ books }) => {
   const [showModal, setShowModal] = useState(false);
