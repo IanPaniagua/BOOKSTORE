@@ -15,6 +15,7 @@ export const createBook = async (request, response) => {
       title: request.body.title,
       author: request.body.author,
       publishYear: request.body.publishYear,
+      user: request.user.id,
     };
 
     const book = await Book.create(newBook);
@@ -28,7 +29,7 @@ export const createBook = async (request, response) => {
 
 export const getBooks = async (request, response) => {
   try {
-    const books = await Book.find({});
+    const books = await Book.find({ user: request.user.id }).populate('user');
 
     return response.status(200).json({
       count: books.length,
@@ -44,7 +45,7 @@ export const getBook = async (request, response) => {
   try {
     const { id } = request.params;
 
-    const book = await Book.findById(id);
+    const book = await Book.findById(id).populate('user');
 
     return response.status(200).json(book);
   } catch (error) {
