@@ -1,4 +1,5 @@
 import { Book } from '../models/bookModel.js';
+import { authRequired } from '../middlewares/validateToken.js';
 
 export const createBook = async (request, response) => {
   try {
@@ -15,6 +16,7 @@ export const createBook = async (request, response) => {
       title: request.body.title,
       author: request.body.author,
       publishYear: request.body.publishYear,
+      user: request.user.id,
     };
 
     const book = await Book.create(newBook);
