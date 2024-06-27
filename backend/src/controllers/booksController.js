@@ -1,5 +1,4 @@
 import { Book } from '../models/bookModel.js';
-import { authRequired } from '../middlewares/validateToken.js';
 
 export const createBook = async (request, response) => {
   try {
@@ -30,7 +29,7 @@ export const createBook = async (request, response) => {
 
 export const getBooks = async (request, response) => {
   try {
-    const books = await Book.find({});
+    const books = await Book.find({ user: request.user.id });
 
     return response.status(200).json({
       count: books.length,

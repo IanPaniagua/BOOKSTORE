@@ -8,18 +8,16 @@ import {
 } from '../controllers/booksController.js';
 import { authRequired } from '../middlewares/validateToken.js';
 
-//TODO: separete to controllers
-
 const router = express.Router();
 
 // Route for create a new Book
 router.post('/', authRequired, createBook);
 
 // Route for Get All Books from database
-router.get('/', getBooks);
+router.get('/', authRequired, getBooks);
 
 // Route for Get One Book from database by id
-router.get('/:id', getBook);
+router.get('/:id', authRequired, getBook);
 
 // Route for Update a Book
 router.put('/:id', authRequired, updateBook);
